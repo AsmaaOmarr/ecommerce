@@ -17,7 +17,8 @@ export async function POST(req, res) {
 
   if (existingProduct) {
     // console.log(existingProduct);
-    // update quantity
+      // update quantity
+    //   const updatedProduct 
     await fetch(`http://localhost:5000/cart?id=${product.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
