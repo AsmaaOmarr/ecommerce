@@ -9,7 +9,9 @@ import {
   Card,
   CardContent,
   Stack,
+  Grid,
   Box,
+  Avatar,
 } from "@mui/material";
 import CustomSnackbar from "@/app/components/snackbar";
 
@@ -24,21 +26,23 @@ export default function EditProduct() {
     image: "",
     rating: { rate: 0, count: 0 },
   });
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
 
-  const getProduct = async () => {
-    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
-    const data = await res.json();
-    setProduct(data);
-  };
-
   useEffect(() => {
+    const getProduct = async () => {
+      const res = await fetch(
+        `http://localhost:3000/api/products/${productId}`
+      );
+      const data = await res.json();
+      setProduct(data);
+    };
     getProduct();
-  });
+  }, []);
 
   const handleChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
@@ -73,15 +77,14 @@ export default function EditProduct() {
       );
 
       if (res.ok) {
-        const data = await res.json();
         setSnackbar({
           open: true,
-          message: data.message,
+          message: "Product updated successfully!",
           severity: "success",
         });
         setTimeout(() => router.push("/admin/products"), 2000);
       } else {
-        throw new Error("Failed to add product");
+        throw new Error("Failed to update product");
       }
     } catch (error) {
       setSnackbar({
@@ -94,22 +97,37 @@ export default function EditProduct() {
 
   return (
     <Container maxWidth="md">
-      <Card sx={{ mt: 5, boxShadow: 5, borderRadius: 3 }}>
+      <Card sx={{ mt: 5, boxShadow: 5, borderRadius: 3, p: 3 }}>
         <CardContent>
           <Typography variant="h4" fontWeight="bold" textAlign="center" mb={3}>
-            🛒 Add New Product
+            ✏️ Edit Product
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <Stack spacing={2}>
-              <TextField
-                fullWidth
-                label="Product Title*"
-                name="title"
-                value={product.title}
-                onChange={handleChange}
-              />
 
-              <Box display="flex" gap={2}>
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={3}>
+              {/* Product Image Preview */}
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <Avatar
+                  src={product.image}
+                  alt="Product Image"
+                  sx={{ width: 120, height: 120, boxShadow: 3 }}
+                />
+              </Grid>
+
+              {/* Title Field */}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Product Title*"
+                  name="title"
+                  value={product.title}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </Grid>
+
+              {/* Price & Category */}
+              <Grid item xs={6}>
                 <TextField
                   fullWidth
                   label="Price ($)*"
@@ -117,48 +135,67 @@ export default function EditProduct() {
                   type="number"
                   value={product.price}
                   onChange={handleChange}
+                  variant="outlined"
                 />
+              </Grid>
+
+              <Grid item xs={6}>
                 <TextField
                   fullWidth
                   label="Category*"
                   name="category"
                   value={product.category}
                   onChange={handleChange}
+                  variant="outlined"
                 />
-              </Box>
+              </Grid>
 
-              <TextField
-                fullWidth
-                label="Description*"
-                name="description"
-                value={product.description}
-                onChange={handleChange}
-                multiline
-                rows={3}
-              />
+              {/* Description */}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Description*"
+                  name="description"
+                  value={product.description}
+                  onChange={handleChange}
+                  multiline
+                  rows={3}
+                  variant="outlined"
+                />
+              </Grid>
 
-              <TextField
-                fullWidth
-                label="Image URL*"
-                name="image"
-                value={product.image}
-                onChange={handleChange}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{
-                  py: 1.5,
-                  fontSize: "1.1rem",
-                  fontWeight: "bold",
-                  transition: "0.3s",
-                  "&:hover": { backgroundColor: "#1565c0" },
-                }}
-              >
-                Add Product
-              </Button>
-            </Stack>
+              {/* Image URL */}
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Image URL*"
+                  name="image"
+                  value={product.image}
+                  onChange={handleChange}
+                  variant="outlined"
+                />
+              </Grid>
+
+              {/* Save Button */}
+              <Grid item xs={12} display="flex" justifyContent="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    py: 1.5,
+                    px: 4,
+                    fontSize: "1.1rem",
+                    fontWeight: "bold",
+                    transition: "0.3s",
+                    borderRadius: "8px",
+                    "&:hover": { backgroundColor: "#1565c0" },
+                  }}
+                >
+                  Save Changes
+                </Button>
+              </Grid>
+            </Grid>
           </form>
         </CardContent>
       </Card>

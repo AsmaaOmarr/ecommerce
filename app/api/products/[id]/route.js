@@ -27,13 +27,18 @@ export async function DELETE(req, { params }) {
 // update product
 export async function PATCH(req, { params }) {
   const { id } = await params; // Extract ID from params
-  const { product } = await req.json();
+  const product = await req.json();
 
-  await fetch(`http://localhost:5000/products/${id}`, {
+  const response = await fetch(`http://localhost:5000/products/${id}`, {
     method: "PATCH",
-    body: JSON.stringify({ ...product }),
+    body: JSON.stringify(product),
     headers: { "Content-Type": "application/json" },
   });
+  
+  // Handle errors
+  if (!response.ok) {
+    throw new Error("Failed to update product");
+  }
 
   return new Response(
     JSON.stringify({ message: "product updated successfully ✅" }),
