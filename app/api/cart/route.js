@@ -16,10 +16,9 @@ export async function POST(req, res) {
   const existingProduct = cartProducts.find((p) => p.id === product.id);
 
   if (existingProduct) {
-    // console.log(existingProduct);
-      // update quantity
-    //   const updatedProduct 
-    await fetch(`http://localhost:5000/cart?id=${product.id}`, {
+    // update quantity
+    // patch doesn't support filter cannot make ?id=${product.id}
+    await fetch(`http://localhost:5000/cart/${product.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity: existingProduct.quantity + 1 }),

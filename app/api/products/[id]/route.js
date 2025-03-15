@@ -11,3 +11,15 @@ export async function GET(req, { params }) {
     headers: { "Content-Type": "application/json" },
   });
 }
+
+export async function DELETE(req, { params }) {
+  const { id } = await params;
+
+  await fetch(`http://localhost:5000/products/${id}`, {
+    method: "DELETE",
+  });
+
+  return new Response(JSON.stringify({ message: "Product removed" }), {
+    status: 200,
+  });
+}

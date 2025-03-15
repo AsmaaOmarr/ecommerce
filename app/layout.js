@@ -1,7 +1,9 @@
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import { CartContextProvider } from "./contexts/cartcontextprovider";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,19 +15,25 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "ShopEase",
-  description: "",
-};
+// export const metadata = {
+//   title: "ShopEase",
+//   description: "",
+// };
 
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname.startsWith("/admin");
+
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <CartContextProvider>
-          {<Navbar></Navbar>}
-          {children}
-        </CartContextProvider>
+      <body>
+        {!isAdminRoute && <Navbar />}
+
+        {isAdminRoute ? (
+          children
+        ) : (
+          <CartContextProvider>{children}</CartContextProvider>
+        )}
       </body>
     </html>
   );
