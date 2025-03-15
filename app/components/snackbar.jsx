@@ -13,8 +13,13 @@ const CustomSnackbar = ({
         open={snackbarOpen}
         autoHideDuration={4000}
         onClose={() => setSnackbarOpen(false)}
+        // sx={{ width: "100%" }}
       >
-        <Alert onClose={() => setSnackbarOpen(false)} severity="success">
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={severity}
+          // sx={{ width: "40%" }}
+        >
           {message}
         </Alert>
       </Snackbar>

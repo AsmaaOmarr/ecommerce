@@ -7,7 +7,7 @@ import CartItem from "./cartItem";
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
-  // ✅ Function to fetch updated cart data
+  // Function to fetch updated cart data
   const getCart = async () => {
     const res = await fetch(`http://localhost:3000/api/cart`);
     const data = await res.json();
@@ -60,7 +60,7 @@ const CartPage = () => {
         fontWeight="bold"
         mb={3}
         textAlign="center"
-        color="primary"
+        // color="gray"
       >
         🛒 Your Shopping Cart
       </Typography>
@@ -69,7 +69,7 @@ const CartPage = () => {
         <CartItem key={item.id} item={item} refreshCart={getCart}></CartItem>
       ))}
 
-      <Divider sx={{ my: 3 }} />
+      {/* <Divider sx={{ my: 3 }} /> */}
 
       {/* Total Price & Actions */}
       <Box
@@ -77,8 +77,6 @@ const CartPage = () => {
         bottom={0}
         bgcolor="white"
         p={3}
-        boxShadow={3}
-        borderRadius="12px"
         display="flex"
         justifyContent="space-between"
         alignItems="center"

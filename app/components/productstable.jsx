@@ -11,11 +11,13 @@ import {
 import { Edit, Delete } from "@mui/icons-material";
 import AlertDialogSlide from "./alertDialog";
 import CustomSnackbar from "./snackbar";
+import { useRouter } from "next/navigation";
 
 export default function ProductsTable({ products, setProducts }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const router = useRouter();
 
   const handleDelete = async () => {
     if (!selectedProductId) return;
@@ -51,6 +53,9 @@ export default function ProductsTable({ products, setProducts }) {
               <strong>ID</strong>
             </TableCell>
             <TableCell>
+              <strong>Image</strong>
+            </TableCell>
+            <TableCell>
               <strong>Name</strong>
             </TableCell>
             <TableCell>
@@ -65,12 +70,15 @@ export default function ProductsTable({ products, setProducts }) {
           {products.map((product) => (
             <TableRow key={product.id}>
               <TableCell>{product.id}</TableCell>
+              <TableCell>
+                <img src={product.image} width={50} height={50}></img>
+              </TableCell>
               <TableCell>{product.title}</TableCell>
               <TableCell>${product.price}</TableCell>
               <TableCell>
                 <IconButton
                   color="primary"
-                  onClick={() => alert("Edit Product (Coming Soon!)")}
+                  onClick={() => router.push(`/admin/products/${product.id}`)}
                 >
                   <Edit />
                 </IconButton>

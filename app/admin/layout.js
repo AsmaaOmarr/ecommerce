@@ -76,9 +76,9 @@ export default function AdminLayout({ children }) {
             key={item.text}
             onClick={() => handleNavigation(item.path)}
             sx={{
-              bgcolor: pathname === item.path ? "#3f51b5" : "transparent",
+              bgcolor: pathname === item.path ? "#0047AB" : "transparent",
               color: pathname === item.path ? "white" : "#aaa",
-              "&:hover": { bgcolor: "#3f51b5", color: "white" },
+              "&:hover": { bgcolor: "#0047AB", color: "white" },
             }}
           >
             <ListItemIcon sx={{ color: "inherit" }}>{item.icon}</ListItemIcon>

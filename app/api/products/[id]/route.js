@@ -23,3 +23,22 @@ export async function DELETE(req, { params }) {
     status: 200,
   });
 }
+
+// update product
+export async function PATCH(req, { params }) {
+  const { id } = await params; // Extract ID from params
+  const { product } = await req.json();
+
+  await fetch(`http://localhost:5000/products/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ ...product }),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  return new Response(
+    JSON.stringify({ message: "product updated successfully ✅" }),
+    {
+      status: 200,
+    }
+  );
+}

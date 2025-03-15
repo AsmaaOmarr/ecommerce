@@ -27,12 +27,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {!isAdminRoute && <Navbar />}
-
         {isAdminRoute ? (
           children
         ) : (
-          <CartContextProvider>{children}</CartContextProvider>
+          <CartContextProvider>
+            {" "}
+            <Navbar></Navbar> {children}
+          </CartContextProvider>
         )}
       </body>
     </html>

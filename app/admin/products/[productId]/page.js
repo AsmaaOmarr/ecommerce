@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import {
   TextField,
   Button,
@@ -13,7 +13,8 @@ import {
 } from "@mui/material";
 import CustomSnackbar from "@/app/components/snackbar";
 
-export default function AddProduct() {
+export default function EditProduct() {
+  const { productId } = useParams();
   const router = useRouter();
   const [product, setProduct] = useState({
     title: "",
@@ -27,6 +28,16 @@ export default function AddProduct() {
     open: false,
     message: "",
     severity: "success",
+  });
+
+  const getProduct = async () => {
+    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const data = await res.json();
+    setProduct(data);
+  };
+
+  useEffect(() => {
+    getProduct();
   });
 
   const handleChange = (e) => {
@@ -52,11 +63,14 @@ export default function AddProduct() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/products", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...product, price: parseFloat(product.price) }),
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/products/${productId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        }
+      );
 
       if (res.ok) {
         const data = await res.json();
