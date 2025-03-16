@@ -1,121 +1,77 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Card,
-  CardMedia,
-  CardContent,
-} from "@mui/material";
+import { Box, Typography, Button, Container } from "@mui/material";
 import Link from "next/link";
 
 const HomePage = async () => {
-  async function getTopProducts() {
-    const res = await fetch("https://fakestoreapi.com/products?limit=4", {
-      cache: "no-store",
-    });
-    return res.json();
-  }
-
-  const products = await getTopProducts();
-
   return (
-    <Box p={3} maxWidth={1200} mx="auto">
-      {/* Hero Section */}
+    <Container
+      disableGutters
+      maxWidth={false}
+      sx={{
+        minHeight: "100vh",
+        width: "100vw",
+        overflow: "hidden",
+        padding: 0,
+        margin: 0,
+      }}
+    >
+      {/* Full-Screen Hero Section */}
       <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        textAlign="center"
-        py={5}
-        sx={{ bgcolor: "#f5f5f5", borderRadius: 3 }}
+        sx={{
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          textAlign: "center",
+          backgroundImage:
+            "url(https://plus.unsplash.com/premium_photo-1681488262364-8aeb1b6aac56?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          position: "relative",
+          color: "white",
+        }}
       >
-        <Typography variant="h3" fontWeight="bold">
-          Welcome to ShopEase 🛍️
-        </Typography>
-        <Typography variant="h6" color="text.secondary" mt={1} maxWidth={600}>
-          Discover amazing products at unbeatable prices. Shop now and enjoy
-          exclusive deals!
-        </Typography>
-        <Link href={"/products"}>
-          <Button variant="contained" color="primary" sx={{ mt: 3 }}>
-            Start Shopping
-          </Button>
-        </Link>
-      </Box>
-      {/* Trending Products */}
-      <Box mt={6}>
-        <Typography variant="h4" fontWeight="bold" textAlign="center">
-          Trending Now 🔥
-        </Typography>
+        {/* Dark Overlay */}
         <Box
-          display="flex"
-          flexWrap="wrap"
-          justifyContent="center"
-          mt={3}
-          gap={2}
-        >
-          {products.map((product) => (
-            <Link key={product.id} href={`/products/${product.id}`}>
-              <Card
-                key={product.id}
-                sx={{ width: 250, boxShadow: 3, cursor: "pointer" }}
-                // onClick={() => router.push(`/products/${product.id}`)}
-              >
-                <CardMedia
-                  component="img"
-                  image={product.image}
-                  alt={product.title}
-                  sx={{ height: 200, objectFit: "contain", p: 2 }}
-                />
-                <CardContent>
-                  <Typography variant="body1" fontWeight="bold">
-                    {product.title.length > 30
-                      ? product.title.substring(0, 30) + "..."
-                      : product.title}
-                  </Typography>
-                  <Typography variant="h6" color="primary">
-                    ${product.price}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            bgcolor: "rgba(0, 0, 0, 0.5)",
+          }}
+        />
+        {/* Content */}
+        <Box sx={{ position: "relative", zIndex: 1, textAlign: "center" }}>
+          <Typography variant="h2" fontWeight="bold">
+            Welcome to ShopEase 🛍️
+          </Typography>
+          <Typography variant="h5" sx={{ maxWidth: 600, mt: 1 }}>
+            Discover amazing deals on your favorite products!
+          </Typography>
+          <Link href="/products" passHref>
+            <Button
+              variant="contained"
+              sx={{
+                mt: 3,
+                bgcolor: "#ff6b6b",
+                color: "white",
+                px: 4,
+                py: 1.5,
+                fontWeight: "bold",
+                "&:hover": { bgcolor: "#e63946" },
+              }}
+            >
+              Start Shopping
+            </Button>
+          </Link>
         </Box>
       </Box>
-
-      {/* Promotional Banner */}
-      <Box
-        mt={6}
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        textAlign="center"
-        p={4}
-        sx={{ bgcolor: "#ff9800", borderRadius: 3, color: "white" }}
-      >
-        <Typography variant="h4" fontWeight="bold">
-          Limited-Time Offer! 🎉
-        </Typography>
-        <Typography variant="body1" mt={1} maxWidth={600}>
-          Get up to <strong>50% OFF</strong> on selected items. Hurry, before
-          the sale ends!
-        </Typography>
-        <Link href={"/products"}>
-          <Button
-            variant="contained"
-            sx={{
-              mt: 2,
-              bgcolor: "white",
-              color: "#ff9800",
-              fontWeight: "bold",
-            }}
-          >
-            Shop Now
-          </Button>
-        </Link>
-      </Box>
-    </Box>
+    </Container>
   );
 };
 

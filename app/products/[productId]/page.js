@@ -27,7 +27,7 @@ const Page = async ({ params }) => {
   const product = await getProductDetails();
 
   return (
-    <Box display="flex" flexDirection="row" justifyContent="center" p={3}>
+    <Box height={"90vh"} display="flex" flexDirection="row" justifyContent="center" alignItems="center" p={3}>
       <Card sx={{ maxWidth: 900, padding: 2, boxShadow: 5 }}>
         <Box
           display="flex"
@@ -47,6 +47,10 @@ const Page = async ({ params }) => {
               padding: 2,
               flex: 1,
               width: "40%",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                scale: 1.08,
+              },
             }}
           />
 
@@ -88,7 +92,7 @@ const Page = async ({ params }) => {
                 href="/products"
                 style={{ textDecoration: "none", flex: 1 }}
               >
-                <Button variant="outlined" sx={{ width: "100%" }}>
+                <Button variant="outlined" color="black" sx={{ width: "100%" }}>
                   Back to Products
                 </Button>
               </Link>

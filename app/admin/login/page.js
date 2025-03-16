@@ -32,8 +32,8 @@ export default function AdminLogin() {
       setTimeout(() => {
         setSuccess("");
         localStorage.setItem("adminToken", "admin123");
-        router.push("/admin/dashboard");
-      }, 2000);
+        router.push("/admin/products");
+      }, 1000);
     } else {
       setError("Invalid credentials. Try again.");
       setTimeout(() => {

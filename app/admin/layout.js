@@ -42,6 +42,11 @@ export default function AdminLayout({ children }) {
     }
   }, [pathname, router]);
 
+  // ✅ If user is on login page, return children only
+  if (pathname === "/admin/login") {
+    return <>{children}</>;
+  }
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -49,17 +54,15 @@ export default function AdminLayout({ children }) {
   const handleNavigation = (path) => {
     if (path === "/admin/login") {
       localStorage.removeItem("adminToken"); // Logout
-      router.push(path);
-    } else {
-      router.push(path);
     }
+    router.push(path);
   };
 
   const drawer = (
     <Box
       sx={{
         width: drawerWidth,
-        bgcolor: " #121212",
+        bgcolor: "#121212",
         height: "100vh",
         color: "white",
       }}
@@ -128,7 +131,7 @@ export default function AdminLayout({ children }) {
         </Toolbar>
       </AppBar>
 
-      {/* Sidebar - Permanent for large screens, Temporary for mobile */}
+      {/* Sidebar */}
       <Drawer
         variant="permanent"
         sx={{
@@ -154,7 +157,6 @@ export default function AdminLayout({ children }) {
 
       {/* Page Content */}
       <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 8 }}>
-        {/* childen producst etc.. */}
         {children}
       </Box>
     </Box>

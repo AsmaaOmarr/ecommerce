@@ -6,7 +6,6 @@ import {
   IconButton,
   TableRow,
   TableCell,
-  Avatar,
 } from "@mui/material";
 import { Add, Remove, Delete } from "@mui/icons-material";
 import { useCart } from "../contexts/cartcontextprovider";
@@ -47,35 +46,52 @@ const CartItem = ({ item, refreshCart }) => {
   };
 
   return (
-    <TableRow>
-      <TableCell>
+    <TableRow sx={{ width: "600px", maxWidth: "100%" }}>
+      <TableCell sx={{ width: "40%" }}>
         <Box display="flex" alignItems="center" gap={2}>
-          <img src={item.image} alt={item.title} width={60} height={60} />
-          <Typography variant="body1" fontWeight="bold">
+          <img
+            src={item.image}
+            alt={item.title}
+            width={60}
+            height={60}
+            style={{ borderRadius: "8px", objectFit: "contain" }}
+          />
+          <Typography variant="body1" fontWeight="bold" color="black">
             {item.title}
           </Typography>
         </Box>
       </TableCell>
-      <TableCell align="right">${item.price.toFixed(2)}</TableCell>
-      <TableCell align="center">
+      <TableCell align="right" sx={{ width: "15%", color: "gray" }}>
+        ${item.price.toFixed(2)}
+      </TableCell>
+      <TableCell align="center" sx={{ width: "25%" }}>
         <Box display="flex" alignItems="center" justifyContent="center" gap={1}>
           <IconButton
             onClick={() => decreaseQuantity(item.id)}
-            sx={{ bgcolor: "#f0f0f0", "&:hover": { bgcolor: "#ddd" } }}
+            sx={{
+              bgcolor: "#333",
+              color: "white",
+              "&:hover": { bgcolor: "#444" },
+            }}
           >
             <Remove />
           </IconButton>
-          <Typography>{item.quantity}</Typography>
+        
+          <Typography color="black">{item.quantity}</Typography>
           <IconButton
             onClick={() => increaseQuantity(item.id)}
-            sx={{ bgcolor: "#f0f0f0", "&:hover": { bgcolor: "#ddd" } }}
+            sx={{
+              bgcolor: "#333",
+              color: "white",
+              "&:hover": { bgcolor: "#444" },
+            }}
           >
             <Add />
           </IconButton>
         </Box>
       </TableCell>
-      <TableCell align="right">
-        <Typography fontWeight="bold" color="primary">
+      <TableCell align="right" sx={{ width: "20%" }}>
+        <Typography fontWeight="bold" color="#f39c12">
           ${(item.price * item.quantity).toFixed(2)}
         </Typography>
         <IconButton color="error" onClick={() => deleteProduct(item.id)}>

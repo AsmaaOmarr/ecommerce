@@ -81,11 +81,11 @@ const CartPage = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography variant="h5" fontWeight="bold" color="primary">
+        <Typography variant="h5" fontWeight="bold" color="warning">
           Total: ${totalPrice.toFixed(2)}
         </Typography>
         <Box display="flex" gap={2}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="warning">
             Proceed to Checkout
           </Button>
         </Box>

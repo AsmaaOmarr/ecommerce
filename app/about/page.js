@@ -1,71 +1,87 @@
-import React from "react";
-import { Box, Typography, Paper, Button, CardMedia } from "@mui/material";
+import { Box, Typography, Button, Container } from "@mui/material";
+import Image from "next/image";
+import Link from "next/link";
 
 const AboutPage = () => {
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" p={4}>
-      {/* About Section */}
-      <Paper
-        elevation={3}
+    <Box>
+      {/* Hero Section with Background Image */}
+      <Box
         sx={{
-          p: 4,
-          width: "100%",
-          maxWidth: 900,
-          textAlign: "center",
-          borderRadius: 2,
-          bgcolor: "#f8f9fa",
+          height: "60vh",
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1449247666642-264389f5f5b1?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "relative",
         }}
       >
-        {/* Brand Image */}
-        <CardMedia
-          component="img"
-          image="https://t4.ftcdn.net/jpg/02/50/31/83/360_F_250318394_Sv5grwCptbMlak5Rp4PtiDCsb6HYOUzg.jpg"
-          alt="Our Brand"
+        {/* Dark Overlay */}
+        <Box
           sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
-            height: 250,
-            objectFit: "cover",
-            borderRadius: 2,
-            mb: 2,
+            height: "100%",
+            bgcolor: "rgba(0, 0, 0, 0.6)",
           }}
         />
+        <Typography
+          variant="h2"
+          fontWeight="bold"
+          color="white"
+          textAlign="center"
+          sx={{ zIndex: 1 }}
+        >
+          About Us
+        </Typography>
+      </Box>
 
-        {/* About Us */}
-        <Typography variant="h4" fontWeight="bold" mb={2}>
-          Welcome to ShopEase 🛍️
-        </Typography>
-        <Typography variant="body1" color="text.secondary" mb={3}>
-          At <strong>ShopEase</strong>, we bring you the latest trends,
-          top-quality products, and an unbeatable shopping experience. Whether
-          you're looking for fashion, electronics, or home essentials, we have
-          it all!
-        </Typography>
+      {/* About Content Section */}
+      <Container sx={{ py: 10, display: "flex", flexDirection: "row", gap: 5 }}>
+        {/* Text Content */}
+        <Box
+          flex={1}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <Typography variant="h4" fontWeight="bold" mb={2}>
+            Who We Are
+          </Typography>
+          <Typography variant="body1" color="text.secondary" mb={3}>
+            At <strong>ShopEase</strong>, we believe in providing high-quality
+            products at affordable prices. Our team is dedicated to bringing you
+            the best shopping experience with a seamless interface and great
+            customer support.
+          </Typography>
+          <Typography variant="body1" color="text.secondary" mb={3}>
+            We are passionate about connecting customers with the best products
+            and ensuring that every shopping experience is effortless and
+            enjoyable.
+          </Typography>
+          <Link href="/contactus">
+            <Button variant="contained" sx={{ mt: 2 }}>
+              Get in Touch
+            </Button>
+          </Link>
+        </Box>
 
-        {/* Our Mission */}
-        <Typography variant="h5" fontWeight="bold" mt={2} mb={1}>
-          Our Mission 🎯
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          To provide customers with a seamless and enjoyable online shopping
-          experience while offering the best quality and prices.
-        </Typography>
-
-        {/* Why Choose Us? */}
-        <Typography variant="h5" fontWeight="bold" mt={3} mb={1}>
-          Why Shop With Us? 🛒
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          ✔ Wide range of high-quality products <br />
-          ✔ Secure & fast checkout process <br />
-          ✔ Reliable customer service <br />
-          ✔ Exclusive deals & discounts <br />
-        </Typography>
-
-        {/* CTA Button */}
-        <Button variant="contained" color="primary" sx={{ mt: 3 }}>
-          Start Shopping
-        </Button>
-      </Paper>
+        {/* Image */}
+        <Box flex={1} display="flex" justifyContent="center">
+          <Image
+            src="https://images.unsplash.com/photo-1609143739217-01b60dad1c67?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBhY2tpbmd8ZW58MHx8MHx8fDA%3D"
+            alt="Our Team"
+            width={600}
+            height={400}
+            style={{ borderRadius: "10px", objectFit: "cover" }}
+          />
+        </Box>
+      </Container>
     </Box>
   );
 };

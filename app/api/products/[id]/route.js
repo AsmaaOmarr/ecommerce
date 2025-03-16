@@ -4,7 +4,7 @@ export async function GET(req, { params }) {
   const res = await fetch(`http://localhost:5000/products?id=${id}`); // Fetch from JSON server
 
   if (!res.ok) return new Response("Product not found", { status: 404 });
-  // it return as an array of one object so i destruct it
+  // it return an array of one object so i destruct it
   const [product] = await res.json();
   return new Response(JSON.stringify(product), {
     status: 200,
@@ -34,7 +34,6 @@ export async function PATCH(req, { params }) {
     body: JSON.stringify(product),
     headers: { "Content-Type": "application/json" },
   });
-  
   // Handle errors
   if (!response.ok) {
     throw new Error("Failed to update product");
